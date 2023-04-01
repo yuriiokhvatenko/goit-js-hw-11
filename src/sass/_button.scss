@@ -1,0 +1,88 @@
+$search-button-background-color: #2c3e50;
+$search-button-color: #fff;
+$search-button-border-radius: 5px;
+$search-button-border: none;
+$search-button-font-size: 16px;
+$search-button-width: 120px;
+$search-button-height: 48px;
+
+$search-button-transition: all 0.2s ease-in-out;
+
+$load-more-button-background-color: #ff9500;
+$load-more-button-color: #fff;
+$load-more-button-border-radius: 5px;
+$load-more-button-border: none;
+$load-more-button-font-size: 16px;
+$load-more-button-width: 160px;
+$load-more-button-height: 48px;
+$load-more-button-margin-top: 50px;
+$load-more-button-margin-bottom: 30px;
+$load-more-button-margin-left: -80px;
+
+$load-more-button-transition: all 0.2s ease-in-out;
+
+.search-form__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: $search-button-width;
+    height: $search-button-height;
+    font-size: $search-button-font-size;
+    border-radius: $search-button-border-radius;
+    border: $search-button-border;
+    background-color: $search-button-background-color;
+    color: $search-button-color;
+    cursor: pointer;
+    transition: $search-button-transition;
+
+    &:hover,
+    &:focus {
+        background-color: darken($search-button-background-color, 10%);
+        color: $search-button-color;
+        transform: translateY(-2px);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    &:active {
+        transform: translateY(0);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    }
+}
+
+.load-more {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: $load-more-button-width;
+    height: $load-more-button-height;
+    font-size: $load-more-button-font-size;
+    border-radius: $load-more-button-border-radius;
+    border: $load-more-button-border;
+    background-color: $load-more-button-background-color;
+    color: $load-more-button-color;
+    cursor: pointer;
+    transition: $load-more-button-transition;
+
+    margin-top: $load-more-button-margin-top;
+    margin-bottom: $load-more-button-margin-bottom;
+    margin-left: calc(50% + $load-more-button-margin-left);
+
+    &:hover,
+    &:focus {
+        background-color: darken($load-more-button-background-color, 10%);
+        color: $load-more-button-color;
+        transform: translateY(-2px);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    &:active {
+        transform: translateY(0);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    &.is-hidden {
+        display: none;
+    }
+}

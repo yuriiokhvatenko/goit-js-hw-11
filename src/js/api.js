@@ -1,37 +1,70 @@
-const form = document.getElementById('search-form');
-const apiKey = '34861044-3d4a2b0f1a81501e9c4423978';
-let currentPage = 1;
+import axios from 'axios';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
-form.addEventListener('submit', event => {
-  event.preventDefault();
+export default class ApiConstructor {
+  constructor() {
+    this.searchQuery = '';
+    this.page = 1;
+    this.counter = 0;
+  }
 
-  const searchQuery = event.target.searchQuery.value;
-
-  fetch(`https://pixabay.com/api/?key=${apiKey}&q=${searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&per_page=10&page=${currentPage}`)
-    .then(response => response.json())
-    .then(data => {
-      if (data.hits.length === 0) {
-        // Виводимо повідомлення, якщо немає зображень, що задовольняють запит
-        console.log('Sorry, there are no images matching your search query. Please try again.');
-      } else {
-        // Виводимо результати запиту
-        data.hits.forEach(hit => {
-          const image = {
-            webformatURL: hit.webformatURL,
-            largeImageURL: hit.largeImageURL,
-            alt: hit.tags,
-            likes: hit.likes,
-            views: hit.views,
-            comments: hit.comments,
-            downloads: hit.downloads
-          };
-          console.log(image);
-        });
-      }
-    })
-    .catch(error => {
-      console.error(error);
+  async fatchImages() {
+    const URL = 'https://pixabay.com/api';
+    const KEY = '34861044-3d4a2b0f1a81501e9c4423978';
+    const urlSearchParams = new URLSearchParams({
+      key: KEY,
+      q: this.searchQuery,
+      image_type: 'photo',
+      orientation: 'horizontal',
+      safesearch: 'true',
+      per_page: 40,
+        page: this.page,
+      
     });
 
-  currentPage++;
-});
+    try {
+      const response = await axios.get(
+        `${URL}/?q=${this.searchQuery}&${urlSearchParams}`
+      );
+
+      if (response.data.totalHits === 0) {
+        Notify.failure(
+          `Sorry there are no images matching your search query. Please try again`
+        );
+        return [];
+      }
+
+      this.counterImagesLoad(response.data.hits.length);
+      this.incrementPage();
+
+      return response.data.hits || [];
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
+  }
+
+  incrementPage() {
+    this.page += 1;
+  }
+
+  counterImagesLoad(data) {
+    this.counter += data;
+  }
+
+  resetPage() {
+    this.page = 1;
+  }
+
+  resetСounterImagesLoad() {
+    this.counter = 0;
+  }
+
+  get query() {
+    return this.searchQuery;
+  }
+
+  set query(newQuery) {
+    this.searchQuery = newQuery;
+  }
+}
