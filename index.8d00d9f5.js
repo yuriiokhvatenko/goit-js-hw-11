@@ -1,2 +1,0 @@
-fetch("https://pixabay.com/api/?key=34861044-3d4a2b0f1a81501e9c4423978&q=car&image_type=photo&orientation=horizontal&safesearch=true&per_page=10&page=1").then((e=>e.json())).then((e=>{0===e.hits.length?console.log("Sorry, there are no images matching your search query. Please try again."):e.hits.forEach((e=>{const a={webformatURL:e.webformatURL,largeImageURL:e.largeImageURL,alt:e.tags,likes:e.likes,views:e.views,comments:e.comments,downloads:e.downloads};console.log(a)}))})).catch((e=>{console.error(e)}));
-//# sourceMappingURL=index.8d00d9f5.js.map
